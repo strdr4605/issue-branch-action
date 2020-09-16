@@ -1,0 +1,28 @@
+{
+  "name": "issue-branch-action",
+  "version": "1.0.0",
+  "description": "Github action that comment on an issue when a related branch is created",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "ncc build index.js -o dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strdr4605/issue-branch-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/strdr4605/issue-branch-action/issues"
+  },
+  "homepage": "https://github.com/strdr4605/issue-branch-action#readme",
+  "dependencies": {
+    "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.3",
+    "typescript": "^4.0.2"
+  }
+}
