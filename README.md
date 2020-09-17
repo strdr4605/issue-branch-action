@@ -1,7 +1,13 @@
 # Issue Branch action
 
-Github action that comment on an issue when a related branch is created
+> Github action that comment on an issue when a related branch is created
 
+The action check for branch name pattern `/(\d+)-/`.
+
+```js
+`feat/1-issue` // 1
+`4605-some-branch-name` // 4605
+```
 
 ## Example usage
 

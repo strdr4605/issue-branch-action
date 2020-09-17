@@ -1,7 +1,7 @@
-const github = require("@actions/github");
-const got = require("got");
+import { context } from "@actions/github";
+import { extend } from "got";
 
-const client = got.extend({
+const client = extend({
   headers: {
     Authorization: `token ${process.env.GITHUB_TOKEN}`,
   },
@@ -9,8 +9,7 @@ const client = got.extend({
 
 const ISSUE_NUMBER_REGEXP = /(\d+)-/;
 
-const payload = github.context.payload;
-console.log(`The event payload: ${JSON.stringify(payload, undefined, 2)}`);
+const payload = context.payload;
 
 const {
   ref: branchName,
@@ -25,8 +24,6 @@ if (ref_type !== "branch") {
 }
 
 const matchResult = branchName.match(ISSUE_NUMBER_REGEXP);
-
-console.log({ matchResult });
 
 if (matchResult === null) {
   process.exit(0);
@@ -46,21 +43,20 @@ async function postComment(repo, base, head, issue) {
   const repoUrl = parrentRepo.html_url;
   const compareUrl = `${repoUrl}/compare/${base}...${head}`;
   const issueComment = {
-    body: `User @${sender.login} created a branch for this issue. [${base}...${head}](${compareUrl})`,
+    body: `@${sender.login} created a branch for this issue. [${base}...${head}](${compareUrl})`,
   };
   try {
     await client.post(commentsUrl, {
       json: issueComment,
     });
   } catch (e) {
-    console.log(e);
+    console.log(`Error while posting issueComment`);
   }
 }
 
 async function getIssueCommentUrl(issue, repo) {
   const issuesUrl = repo.issues_url;
   const currentIssueUrl = issuesUrl.replace("{/number}", `/${issue}`);
-  console.log({ currentIssueUrl });
   try {
     const { comments_url: commentsUrl } = await client
       .get(currentIssueUrl)
@@ -68,7 +64,7 @@ async function getIssueCommentUrl(issue, repo) {
 
     return commentsUrl;
   } catch (e) {
-    console.log(e);
+    console.log(`Error while fetching ${currentIssueUrl}`);
   }
 }
 
