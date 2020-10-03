@@ -4,7 +4,7 @@
   "description": "Github action that comment on an issue when a related branch is created",
   "main": "index.js",
   "scripts": {
-    "prepare": "ncc build index.js -o dist",
+    "prepare": "ncc build index.ts -o dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,7 @@
     "got": "^11.6.2"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.22.3"
+    "@vercel/ncc": "^0.24.1",
+    "typescript": "^4.0.3"
   }
 }
