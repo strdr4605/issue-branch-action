@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Issue Branch check'
-        uses: strdr4605/issue-branch-action@v1
+        uses: strdr4605/issue-branch-action@v1.1
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
